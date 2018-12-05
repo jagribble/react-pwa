@@ -26,11 +26,13 @@ const styles = (theme) => {
 };
 
 const Container = (props) => {
-  const { classes, theme } = props;
+  const {
+    classes, theme, open, mobile, children,
+  } = props;
 
   return (
-    <div className={!props.open ? classes.content : classes.contentShift}>
-      {props.children}
+    <div className={(!open && !mobile) || mobile ? classes.content : classes.contentShift}>
+      {children}
     </div>);
 };
 

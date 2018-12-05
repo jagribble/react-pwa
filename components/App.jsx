@@ -9,6 +9,7 @@ import createBrowserHistory from 'history/createBrowserHistory';
 
 import Template from './Template';
 import Container from './Container';
+import BlogPage from './BlogPage';
 import Home from './Home';
 
 const client = createClient({
@@ -26,13 +27,14 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true, homeText: '', blogs: [], menuItems: [],
+      open: true, home: {}, blogs: [], menuItems: [], assets: [],
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.getHomeContent = this.getHomeContent.bind(this);
     this.getBlogs = this.getBlogs.bind(this);
     this.renderRoutes = this.renderRoutes.bind(this);
     this.getMenuItems = this.getMenuItems.bind(this);
+    this.getImageURL = this.getImageURL.bind(this);
   }
 
   componentWillMount() {
@@ -45,7 +47,7 @@ export default class App extends Component {
       content_type: 'blogPost',
     })
       .then((response) => {
-        this.setState({ blogs: response.items }, () => {
+        this.setState({ blogs: response.items, assets: response.includes.Asset }, () => {
           this.getMenuItems();
         });
       })
@@ -57,7 +59,7 @@ export default class App extends Component {
       content_type: 'home',
     })
       .then((response) => {
-        this.setState({ homeText: response.items[0].fields.body });
+        this.setState({ home: response.items[0].fields, assets: response.includes.Asset });
       })
       .catch(console.error);
   }
@@ -70,21 +72,29 @@ export default class App extends Component {
     this.setState({ menuItems });
   }
 
+  getImageURL(id) {
+    const { assets } = this.state;
+    const imageAsset = assets.find((asset) => { return asset.sys.id === id; });
+    return imageAsset.fields.file.url;
+  }
+
   toggleDrawer() {
     const { open } = this.state;
     this.setState({ open: !open });
   }
 
   renderRoutes() {
-    const { blogs } = this.state;
+    const { blogs, open } = this.state;
     return blogs.map((blog) => {
       const { fields } = blog;
-      return <Route key={fields.slug} path={`/blog/${fields.slug}`} component={() => { return (<Home text={`${fields.body}`} />); }} />;
+      const imageURL = this.getImageURL(fields.heroImage.sys.id);
+      return <Route key={fields.slug} path={`/blog/${fields.slug}`} component={() => { return (<BlogPage image={imageURL} open={open} title={fields.title} body={`${fields.body}`} />); }} />;
     });
   }
 
   render() {
-    const { homeText, menuItems, open } = this.state;
+    const { home, menuItems, open } = this.state;
+    const imageURL = home.heroImage ? this.getImageURL(home.heroImage.sys.id) : '';
     return (
       <MuiThemeProvider>
         <Router history={history}>
@@ -104,12 +114,10 @@ export default class App extends Component {
                     );
                   }}
                 />
-                <Container
-                  open={open}
-                >
-                  <Route exact path="/" component={() => { return (<Home text={`${homeText}`} />); }} />
-                  {this.renderRoutes()}
-                </Container>
+
+                <Route exact path="/" component={() => { return <BlogPage image={imageURL} open={open} title={home.title} body={`${home.body}`} />; }} />
+                {this.renderRoutes()}
+
 
               </div>
             </Route>
