@@ -75,7 +75,7 @@ export default class App extends Component {
   getImageURL(id) {
     const { assets } = this.state;
     const imageAsset = assets.find((asset) => { return asset.sys.id === id; });
-    return imageAsset.fields.file.url;
+    return imageAsset !== undefined ? imageAsset.fields.file.url : '';
   }
 
   toggleDrawer() {

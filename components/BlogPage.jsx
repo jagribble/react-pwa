@@ -29,7 +29,7 @@ const BlogPage = (props) => {
   return (
     <React.Fragment>
       <div style={open && !isMobile ? mobileStyle(240) : {}}>
-        <Parallax bgImage={image} strength={500}>
+        <Parallax bgImage={`${image}?fm=jpg&fl=progressive`} strength={500}>
           <div style={{ height: 500 }}>
             <div style={headerStyle}><h1>{title}</h1></div>
           </div>
