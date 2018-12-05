@@ -6,7 +6,8 @@ import PageContent from './Home';
 import Container from './Container';
 
 const headerStyle = {
-  background: 'white',
+  color: 'white',
+  textShadow: '2px 2px #3f51b5',
   padding: 20,
   position: 'absolute',
   top: '50%',
