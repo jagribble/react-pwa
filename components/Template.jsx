@@ -142,7 +142,7 @@ Template.propTypes = {
   theme: PropTypes.shape,
   open: PropTypes.bool.isRequired,
   title: PropTypes.string.isRequired,
-  navItems: PropTypes.arrayof(PropTypes.object).isRequired,
+  navItems: PropTypes.arrayOf(PropTypes.object).isRequired,
   toggleDrawer: PropTypes.func.isRequired,
   history: PropTypes.shape.isRequired,
 };
