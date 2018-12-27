@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -75,56 +76,75 @@ const styles = (theme) => {
 };
 
 const Template = (props) => {
-  const { classes, theme } = props;
+  const {
+    classes, theme, open, toggleDrawer, title, navItems, history,
+  } = props;
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={!props.open ? classes.appBar : classes.appBarShift}
-      >
-        <Toolbar disableGutters={!props.open}>
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={props.toggleDrawer}
-            className={!props.open ? classes.menuButton : classes.hide}
-          >
-            <MenuIcon />
-          </IconButton>
-          {props.title}
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="persistent"
-        anchor="left"
-        open={props.open}
-        classes={{
-          paper: classes.drawerPaper,
-        }}
-      >
-        <div className={classes.drawerHeader}>
-          <IconButton onClick={props.toggleDrawer}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          <ListItem button key="Home" onClick={() => { return props.history.push('/'); }}>
-            <ListItemText primary="Home" />
-          </ListItem>
-          {props.navItems.map((item) => {
-            return (
-              <ListItem button key={item.url} onClick={() => { return props.history.push(item.url); }}>
-                <ListItemText primary={item.title} />
-              </ListItem>
-            );
-          })}
-        </List>
-      </Drawer>
-    </div>
+    <React.Fragment>
+      <div className={classes.root}>
+        <CssBaseline />
+        <AppBar
+          position="fixed"
+          className={!open ? classes.appBar : classes.appBarShift}
+        >
+          <Toolbar disableGutters={!open}>
+            <IconButton
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={toggleDrawer}
+              className={!open ? classes.menuButton : classes.hide}
+            >
+              <MenuIcon />
+            </IconButton>
+            {title}
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          variant="persistent"
+          anchor="left"
+          open={open}
+          classes={{
+            paper: classes.drawerPaper,
+          }}
+        >
+          <div className={classes.drawerHeader}>
+            <IconButton onClick={toggleDrawer}>
+              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            <ListItem button key="Home" onClick={() => { return history.push('/'); }}>
+              <ListItemText primary="Home" />
+            </ListItem>
+            {navItems.map((item) => {
+              return (
+                <ListItem button key={item.url} onClick={() => { return history.push(item.url); }}>
+                  <ListItemText primary={item.title} />
+                </ListItem>
+              );
+            })}
+          </List>
+        </Drawer>
+      </div>
+    </React.Fragment>
   );
+};
+
+Template.defaultProps = {
+  classes: {},
+  theme: {},
+};
+
+Template.propTypes = {
+  classes: PropTypes.shape,
+  theme: PropTypes.shape,
+  open: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
+  navItems: PropTypes.arrayof(PropTypes.object).isRequired,
+  toggleDrawer: PropTypes.func.isRequired,
+  history: PropTypes.shape.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(Template);

@@ -1,5 +1,3 @@
-// src/routes.js
-
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { Router } from 'react-router';
@@ -8,9 +6,8 @@ import { createClient } from 'contentful';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 import Template from './Template';
-import Container from './Container';
 import BlogPage from './BlogPage';
-import Home from './Home';
+
 
 const client = createClient({
   space: 'z8eeiao1aitz',
@@ -88,7 +85,7 @@ export default class App extends Component {
     return blogs.map((blog) => {
       const { fields } = blog;
       const imageURL = this.getImageURL(fields.heroImage.sys.id);
-      return <Route key={fields.slug} path={`/blog/${fields.slug}`} component={() => { return (<BlogPage image={imageURL} open={open} title={fields.title} body={`${fields.body}`} />); }} />;
+      return (<Route key={fields.slug} path={`/blog/${fields.slug}`} component={() => { return (<BlogPage image={imageURL} open={open} title={fields.title} body={`${fields.body}`} />); }} />);
     });
   }
 
@@ -115,7 +112,20 @@ export default class App extends Component {
                   }}
                 />
 
-                <Route exact path="/" component={() => { return <BlogPage image={imageURL} open={open} title={home.title} body={`${home.body}`} />; }} />
+                <Route
+                  exact
+                  path="/"
+                  component={() => {
+                    return (
+                      <BlogPage
+                        image={imageURL}
+                        open={open}
+                        title={home.title}
+                        body={`${home.body}`}
+                      />
+                    );
+                  }}
+                />
                 {this.renderRoutes()}
 
 

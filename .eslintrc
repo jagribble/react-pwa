@@ -7,4 +7,11 @@
      "react/no-find-dom-node": 0,
      "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true }],
   },
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+        "jsx": true,
+        "modules": true
+    }
+  }
 }

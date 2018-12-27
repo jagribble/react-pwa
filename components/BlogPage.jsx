@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Parallax } from 'react-parallax';
 import { isMobile } from 'react-device-detect';
 
@@ -40,6 +41,13 @@ const BlogPage = (props) => {
       </Container>
     </React.Fragment>
   );
+};
+
+BlogPage.propTypes = {
+  image: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
+  body: PropTypes.string.isRequired,
+  open: PropTypes.bool.isRequired,
 };
 
 export default BlogPage;
