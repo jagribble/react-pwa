@@ -16,6 +16,7 @@ const headerStyle = {
   transform: 'translate(-50%,-50%)',
 };
 
+
 const mobileStyle = (drawerWidth) => {
   return {
     marginLeft: drawerWidth,

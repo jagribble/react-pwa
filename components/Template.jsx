@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -130,21 +129,6 @@ const Template = (props) => {
       </div>
     </React.Fragment>
   );
-};
-
-Template.defaultProps = {
-  classes: {},
-  theme: {},
-};
-
-Template.propTypes = {
-  classes: PropTypes.shape,
-  theme: PropTypes.shape,
-  open: PropTypes.bool.isRequired,
-  title: PropTypes.string.isRequired,
-  navItems: PropTypes.arrayOf(PropTypes.object).isRequired,
-  toggleDrawer: PropTypes.func.isRequired,
-  history: PropTypes.shape.isRequired,
 };
 
 export default withStyles(styles, { withTheme: true })(Template);

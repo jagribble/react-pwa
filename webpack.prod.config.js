@@ -1,12 +1,11 @@
 const webpack = require('webpack');
-const WebpackNotifierPlugin = require('webpack-notifier');
-const path = require('path');
-// const MinifyPlugin = require('babel-minify-webpack-plugin');
+
+const MinifyPlugin = require('babel-minify-webpack-plugin');
 // required for development to import all local envs
 require('dotenv').config();
 
 
-console.log(process.env);
+// console.log(process.env);
 module.exports = {
   mode: 'development',
   context: __dirname,
@@ -25,7 +24,7 @@ module.exports = {
     }],
   },
   plugins: [
-    new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }),
+    new MinifyPlugin(),
   ],
   output: {
     filename: 'build.js',
