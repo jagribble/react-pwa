@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createClient } from 'contentful';
 import isMobile from 'is-mobile';
@@ -10,7 +10,7 @@ import Home from './Home';
 import Container from './Container';
 import UnderConstruction from './UnderConstruction';
 
-
+const theme = createMuiTheme();
 const client = createClient({
   space: 'z8eeiao1aitz',
   accessToken: '169681cf555eb02d1298b7918d6b7c97c2999ebc4878dfce1b04d96cfa676c1a',
@@ -94,7 +94,7 @@ export default class App extends Component {
     const { home, menuItems, open } = this.state;
     const imageURL = home.heroImage ? this.getImageURL(home.heroImage.sys.id) : '';
     return (
-      <MuiThemeProvider>
+      <MuiThemeProvider theme={theme}>
         <Router>
           <div>
             <Route>
