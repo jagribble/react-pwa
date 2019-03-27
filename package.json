@@ -17,6 +17,7 @@
     "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.4",
     "babel-minify-webpack-plugin": "^0.3.1",
+    "classnames": "^2.2.6",
     "contentful": "^7.0.5",
     "cookie-parser": "~1.4.3",
     "debug": "~2.6.9",
@@ -25,8 +26,9 @@
     "hbs": "~4.0.1",
     "history": "^4.7.2",
     "http-errors": "~1.6.2",
-    "material-ui": "^0.20.2",
+    "is-mobile": "^2.0.0",
     "morgan": "~1.9.0",
+    "prop-types": "^15.6.2",
     "react": "^16.6.3",
     "react-device-detect": "^1.6.1",
     "react-dom": "^16.6.3",
@@ -35,8 +37,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "webpack": "^4.26.1",
-    "webpack-cli": "^3.1.2",
-    "prop-types": "^15.6.2"
+    "webpack-cli": "^3.1.2"
   },
   "devDependencies": {
     "eslint": "^5.9.0",

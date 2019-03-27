@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Parallax } from 'react-parallax';
-import { isMobile } from 'react-device-detect';
+import isMobile from 'is-mobile';
 
 import PageContent from './Home';
 import Container from './Container';
@@ -37,18 +37,12 @@ const BlogPage = (props) => {
           </div>
         </Parallax>
       </div>
-      <Container open={open} mobile={isMobile}>
+      <Container open={open} mobile={isMobile()}>
         <PageContent text={body} />
       </Container>
     </React.Fragment>
   );
 };
 
-BlogPage.propTypes = {
-  image: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  open: PropTypes.bool.isRequired,
-};
 
 export default BlogPage;

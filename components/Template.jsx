@@ -84,6 +84,7 @@ const Template = (props) => {
         <CssBaseline />
         <AppBar
           position="fixed"
+          color="default"
           className={!open ? classes.appBar : classes.appBarShift}
         >
           <Toolbar disableGutters={!open}>

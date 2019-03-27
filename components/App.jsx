@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import { Router } from 'react-router';
-import { Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { createClient } from 'contentful';
-import createBrowserHistory from 'history/createBrowserHistory';
+import isMobile from 'is-mobile';
 
 import Template from './Template';
 import BlogPage from './BlogPage';
+import Home from './Home';
+import Container from './Container';
+import UnderConstruction from './UnderConstruction';
 
 
 const client = createClient({
@@ -14,7 +16,6 @@ const client = createClient({
   accessToken: '169681cf555eb02d1298b7918d6b7c97c2999ebc4878dfce1b04d96cfa676c1a',
 });
 
-const history = createBrowserHistory();
 // const homeText = `
 // # Home
 // ---
@@ -62,11 +63,11 @@ export default class App extends Component {
   }
 
   getMenuItems() {
-    const { blogs } = this.state;
-    const menuItems = blogs.map((blog) => {
-      return { title: blog.fields.title, url: `/blog/${blog.fields.slug}` };
-    });
-    this.setState({ menuItems });
+    // const { blogs } = this.state;
+    // const menuItems = blogs.map((blog) => {
+    //   return { title: blog.fields.title, url: `/blog/${blog.fields.slug}` };
+    // });
+    this.setState({ menuItems: [{ title: 'comming soon', url: 'under-contruction' }] });
   }
 
   getImageURL(id) {
@@ -94,19 +95,19 @@ export default class App extends Component {
     const imageURL = home.heroImage ? this.getImageURL(home.heroImage.sys.id) : '';
     return (
       <MuiThemeProvider>
-        <Router history={history}>
+        <Router>
           <div>
             <Route>
               <div>
                 <Route
-                  component={() => {
+                  render={(props) => {
                     return (
                       <Template
                         open={open}
                         toggleDrawer={this.toggleDrawer}
-                        title="Devs in Berkshire"
+                        title="Jules Gribble"
                         navItems={menuItems}
-                        history={history}
+                        {...props}
                       />
                     );
                   }}
@@ -115,18 +116,36 @@ export default class App extends Component {
                 <Route
                   exact
                   path="/"
-                  component={() => {
+                  render={(props) => {
                     return (
-                      <BlogPage
-                        image={imageURL}
+                      <Container
                         open={open}
-                        title={home.title}
-                        body={`${home.body}`}
-                      />
+                        mobile={isMobile()}
+                      >
+                        <Home
+                          {...props}
+                        />
+                      </Container>
                     );
                   }}
                 />
-                {this.renderRoutes()}
+                <Route
+                  exact
+                  path="/under-contruction"
+                  render={(props) => {
+                    return (
+                      <Container
+                        open={open}
+                        mobile={isMobile()}
+                      >
+                        <UnderConstruction
+                          {...props}
+                        />
+                      </Container>
+                    );
+                  }}
+                />
+                {/* {this.renderRoutes()} */}
 
 
               </div>
