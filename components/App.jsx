@@ -25,7 +25,7 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: true, home: {}, blogs: [], menuItems: [], assets: [],
+      open: false, home: {}, blogs: [], menuItems: [], assets: [],
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.getHomeContent = this.getHomeContent.bind(this);
