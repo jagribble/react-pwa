@@ -7,7 +7,8 @@ const styles = (theme) => {
   return {
     content: {
       flexGrow: 1,
-
+      marginTop: 64,
+      padding: 25,
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -15,7 +16,8 @@ const styles = (theme) => {
       marginLeft: 0,
     },
     contentShift: {
-
+      marginTop: 64,
+      padding: 25,
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,

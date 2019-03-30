@@ -25,6 +25,7 @@ const styles = (theme) => {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      marginBottom: 64,
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
