@@ -8,7 +8,7 @@ const styles = (theme) => {
     content: {
       flexGrow: 1,
       marginTop: 64,
-      padding: 25,
+
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
@@ -17,7 +17,24 @@ const styles = (theme) => {
     },
     contentShift: {
       marginTop: 64,
-      padding: 25,
+
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
+      marginLeft: drawerWidth,
+    },
+    contentBlog: {
+      flexGrow: 1,
+
+      transition: theme.transitions.create('margin', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen,
+      }),
+      marginLeft: 0,
+    },
+    contentShiftBlog: {
+
       transition: theme.transitions.create('margin', {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
@@ -29,11 +46,12 @@ const styles = (theme) => {
 
 const Container = (props) => {
   const {
-    classes, open, mobile, children,
+    classes, open, mobile, children, blog = false,
   } = props;
-
+  const contentClass = blog ? classes.contentBlog : classes.content;
+  const contentShiftClass = blog ? classes.contentShiftBlog : classes.contentShift;
   return (
-    <div className={(!open && !mobile) || mobile ? classes.content : classes.contentShift}>
+    <div className={(!open && !mobile) || mobile ? contentClass : contentShiftClass}>
       {children}
     </div>);
 };

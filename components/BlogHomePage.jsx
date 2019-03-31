@@ -11,8 +11,11 @@ import Markdown from 'react-markdown';
 
 const styles = () => {
   return {
+    page: {
+      paddingTop: 1,
+    },
     card: {
-      margin: '25px 0',
+      margin: 25,
       height: 280,
     },
     sneakPeak: {
@@ -74,51 +77,51 @@ class BlogHomePage extends Component {
     const { blogs, classes, history } = this.props;
     console.log(blogs);
     return (
-    <>
-      {blogs.map((blog) => {
-        const {
-          title, publishDate, description, shortDescription, tags, heroImage, slug,
-        } = blog.fields;
-        const heroImageUrl = `https:${this.getImageURL(heroImage.sys.id)}`;
-        return (
-          <Card className={classes.card} key={title} onClick={() => { history.push(`/blog/${slug}`); }}>
-            <Grid container>
-              <Grid item sm={8}>
-                <CardContent className={classes.content}>
-                  <Typograohy variant="h3">{title}</Typograohy>
+      <div className={classes.page}>
+        {blogs.map((blog) => {
+          const {
+            title, publishDate, description, shortDescription, tags, heroImage, slug,
+          } = blog.fields;
+          const heroImageUrl = `https:${this.getImageURL(heroImage.sys.id)}`;
+          return (
+            <Card className={classes.card} key={title} onClick={() => { history.push(`/blog/${slug}`); }}>
+              <Grid container>
+                <Grid item sm={8}>
+                  <CardContent className={classes.content}>
+                    <Typograohy variant="h3">{title}</Typograohy>
 
-                  {/* <Typograohy>{author}</Typograohy> */}
-                  <Typograohy
-                    gutterBottom
-                    noWrap
-                    className={classes.description}
-                  >
-                    <i>{description}</i>
+                    {/* <Typograohy>{author}</Typograohy> */}
+                    <Typograohy
+                      gutterBottom
+                      noWrap
+                      className={classes.description}
+                    >
+                      <i>{description}</i>
 
-                  </Typograohy>
-                  <Divider className={classes.divider} />
+                    </Typograohy>
+                    <Divider className={classes.divider} />
 
-                  <Markdown source={shortDescription} className={classes.sneakPeak} />
+                    <Markdown source={shortDescription} className={classes.sneakPeak} />
 
-                  <Typograohy>
+                    <Typograohy>
 Published on
-                    {' '}
-                    <i>{getDate(publishDate)}</i>
-                  </Typograohy>
-                  {this.getChips(tags, blog.sys.id)}
-                </CardContent>
+                      {' '}
+                      <i>{getDate(publishDate)}</i>
+                    </Typograohy>
+                    {this.getChips(tags, blog.sys.id)}
+                  </CardContent>
+                </Grid>
+                <Grid item sm={4}>
+                  <CardMedia
+                    className={classes.image}
+                    image={heroImageUrl}
+                    title={title}
+                  />
+                </Grid>
               </Grid>
-              <Grid item sm={4}>
-                <CardMedia
-                  className={classes.image}
-                  image={heroImageUrl}
-                  title={title}
-                />
-              </Grid>
-            </Grid>
-          </Card>);
-      })}
-    </>);
+            </Card>);
+        })}
+      </div>);
   }
 }
 

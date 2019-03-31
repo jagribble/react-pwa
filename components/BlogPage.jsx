@@ -1,19 +1,32 @@
 import React, { Component } from 'react';
 import { Parallax } from 'react-parallax';
+import Card from '@material-ui/core/Card';
+import { withStyles } from '@material-ui/core/styles';
 import isMobile from 'is-mobile';
 import Markdown from 'react-markdown';
 import Container from './Container';
 
-const headerStyle = {
-  color: 'white',
-  textShadow: '2px 2px #3f51b5',
-  padding: 20,
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%,-50%)',
+const styles = () => {
+  return {
+    card: {
+      margin: 25,
+      padding: 25,
+      marginTop: 15,
+    },
+    header: {
+      color: 'white',
+      textShadow: '2px 2px #3f51b5',
+      padding: 20,
+      position: 'absolute',
+      top: '50%',
+      left: '50%',
+      transform: 'translate(-50%,-50%)',
+    },
+    headerContainer: {
+      height: 500,
+    },
+  };
 };
-
 
 const mobileStyle = (drawerWidth) => {
   return {
@@ -64,7 +77,7 @@ class BlogPage extends Component {
   }
 
   render() {
-    const { open } = this.props;
+    const { open, classes } = this.props;
     const { blog } = this.state;
     if (blog) {
       const {
@@ -75,20 +88,22 @@ class BlogPage extends Component {
         <React.Fragment>
           <div style={open && !isMobile() ? mobileStyle(240) : {}}>
             <Parallax bgImage={`${heroImageUrl}?fm=jpg&fl=progressive`} strength={500}>
-              <div style={{ height: 500 }}>
-                <div style={headerStyle}><h1>{title}</h1></div>
+              <div className={classes.headerContainer}>
+                <div className={classes.header}><h1>{title}</h1></div>
               </div>
             </Parallax>
           </div>
-          <Container open={open} mobile={isMobile()}>
-            <Markdown source={body} />
+          <Container blog open={open} mobile={isMobile()}>
+            <Card className={classes.card}>
+              <Markdown source={body} />
+            </Card>
           </Container>
         </React.Fragment>
       );
     }
-    return <>Testing</>;
+    return <></>;
   }
 }
 
 
-export default BlogPage;
+export default withStyles(styles, { withTheme: true })(BlogPage);
