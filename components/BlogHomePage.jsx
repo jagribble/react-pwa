@@ -63,7 +63,7 @@ class BlogHomePage extends Component {
 
   getChips(tags, id) {
     const { classes } = this.props;
-    return tags.map((tag) => { return <Chip label={tag} key={`${tag}_${id}`} className={classes.chip} />; });
+    return tags ? tags.map((tag) => { return <Chip label={tag} key={`${tag}_${id}`} className={classes.chip} />; }) : '';
   }
 
   getImageURL(id) {

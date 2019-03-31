@@ -28,6 +28,10 @@ const styles = () => {
   };
 };
 
+const Image = (props) => {
+  return <img {...props} alt="img" style={{ maxWidth: '100%' }} />;
+};
+
 const mobileStyle = (drawerWidth) => {
   return {
     marginLeft: drawerWidth,
@@ -95,7 +99,7 @@ class BlogPage extends Component {
           </div>
           <Container blog open={open} mobile={isMobile()}>
             <Card className={classes.card}>
-              <Markdown source={body} />
+              <Markdown source={body} renderers={{ image: Image }} />
             </Card>
           </Container>
         </React.Fragment>
