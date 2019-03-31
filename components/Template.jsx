@@ -4,14 +4,14 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
+
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
+
+import MenuBar from './MenuBar';
 
 const drawerWidth = 240;
 
@@ -25,6 +25,7 @@ const styles = (theme) => {
         easing: theme.transitions.easing.sharp,
         duration: theme.transitions.duration.leavingScreen,
       }),
+      marginBottom: 64,
     },
     appBarShift: {
       width: `calc(100% - ${drawerWidth}px)`,
@@ -76,7 +77,7 @@ const styles = (theme) => {
 
 const Template = (props) => {
   const {
-    classes, theme, open, toggleDrawer, title, navItems, history,
+    classes, theme, open, toggleDrawer, title, history, blogs,
   } = props;
   return (
     <React.Fragment>
@@ -114,7 +115,8 @@ const Template = (props) => {
             </IconButton>
           </div>
           <Divider />
-          <List>
+          <MenuBar blogs={blogs} history={history} />
+          {/* <List>
             <ListItem button key="Home" onClick={() => { return history.push('/'); }}>
               <ListItemText primary="Home" />
             </ListItem>
@@ -125,7 +127,7 @@ const Template = (props) => {
                 </ListItem>
               );
             })}
-          </List>
+          </List> */}
         </Drawer>
       </div>
     </React.Fragment>

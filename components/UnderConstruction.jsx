@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Markdown from 'react-markdown';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
-import Typography from '@material-ui/core/Typography';
 
 const styles = () => {
   return {

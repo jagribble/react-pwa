@@ -1,19 +1,25 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createClient } from 'contentful';
 import isMobile from 'is-mobile';
 
 import Template from './Template';
 import BlogPage from './BlogPage';
 import Home from './Home';
+import BlogHomePage from './BlogHomePage';
 import Container from './Container';
 import UnderConstruction from './UnderConstruction';
 
-const theme = createMuiTheme();
 const client = createClient({
   space: 'z8eeiao1aitz',
   accessToken: '169681cf555eb02d1298b7918d6b7c97c2999ebc4878dfce1b04d96cfa676c1a',
+});
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
 });
 
 // const homeText = `
@@ -25,12 +31,12 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      open: false, home: {}, blogs: [], menuItems: [], assets: [],
+      open: false, blogs: [], menuItems: [], assets: [],
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
     this.getHomeContent = this.getHomeContent.bind(this);
     this.getBlogs = this.getBlogs.bind(this);
-    this.renderRoutes = this.renderRoutes.bind(this);
+    this.getImageURLs = this.getImageURLs.bind(this);
     this.getMenuItems = this.getMenuItems.bind(this);
     this.getImageURL = this.getImageURL.bind(this);
   }
@@ -57,7 +63,7 @@ export default class App extends Component {
       content_type: 'home',
     })
       .then((response) => {
-        this.setState({ home: response.items[0].fields, assets: response.includes.Asset });
+        this.setState({ assets: response.includes.Asset });
       })
       .catch(console.error);
   }
@@ -67,7 +73,7 @@ export default class App extends Component {
     // const menuItems = blogs.map((blog) => {
     //   return { title: blog.fields.title, url: `/blog/${blog.fields.slug}` };
     // });
-    this.setState({ menuItems: [{ title: 'comming soon', url: 'under-contruction' }] });
+    this.setState({ menuItems: [{ title: 'Blogs', url: '/Blog' }] });
   }
 
   getImageURL(id) {
@@ -76,23 +82,24 @@ export default class App extends Component {
     return imageAsset !== undefined ? imageAsset.fields.file.url : '';
   }
 
+  getImageURLs() {
+    const { blogs } = this.state;
+    return blogs.map((blog) => {
+      const { fields } = blog;
+      const imageURL = this.getImageURL(fields.heroImage.sys.id);
+      return { blog: blog.id, imageURL };
+    });
+  }
+
   toggleDrawer() {
     const { open } = this.state;
     this.setState({ open: !open });
   }
 
-  renderRoutes() {
-    const { blogs, open } = this.state;
-    return blogs.map((blog) => {
-      const { fields } = blog;
-      const imageURL = this.getImageURL(fields.heroImage.sys.id);
-      return (<Route key={fields.slug} path={`/blog/${fields.slug}`} component={() => { return (<BlogPage image={imageURL} open={open} title={fields.title} body={`${fields.body}`} />); }} />);
-    });
-  }
-
   render() {
-    const { home, menuItems, open } = this.state;
-    const imageURL = home.heroImage ? this.getImageURL(home.heroImage.sys.id) : '';
+    const {
+      menuItems, open, blogs, assets,
+    } = this.state;
     return (
       <MuiThemeProvider theme={theme}>
         <Router>
@@ -107,46 +114,81 @@ export default class App extends Component {
                         toggleDrawer={this.toggleDrawer}
                         title="Jules Gribble"
                         navItems={menuItems}
+                        blogs={blogs}
                         {...props}
                       />
                     );
                   }}
                 />
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={(props) => {
+                      return (
+                        <Container
+                          open={open}
+                          mobile={isMobile()}
+                        >
+                          <Home
+                            {...props}
+                          />
+                        </Container>
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/under-contruction"
+                    render={(props) => {
+                      return (
+                        <Container
+                          open={open}
+                          mobile={isMobile()}
+                        >
+                          <UnderConstruction
+                            {...props}
+                          />
+                        </Container>
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/blog"
+                    render={(props) => {
+                      return (
+                        <Container
+                          open={open}
+                          mobile={isMobile()}
+                        >
+                          <BlogHomePage
+                            blogs={blogs}
+                            images={assets}
+                            {...props}
+                          />
+                        </Container>
+                      );
+                    }}
+                  />
+                  <Route
 
-                <Route
-                  exact
-                  path="/"
-                  render={(props) => {
-                    return (
-                      <Container
-                        open={open}
-                        mobile={isMobile()}
-                      >
-                        <Home
+                    path="/blog/:slug"
+                    render={(props) => {
+                      return (
+
+                        <BlogPage
+                          blogs={blogs}
+                          images={assets}
+                          open={open}
                           {...props}
                         />
-                      </Container>
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/under-contruction"
-                  render={(props) => {
-                    return (
-                      <Container
-                        open={open}
-                        mobile={isMobile()}
-                      >
-                        <UnderConstruction
-                          {...props}
-                        />
-                      </Container>
-                    );
-                  }}
-                />
-                {/* {this.renderRoutes()} */}
 
+                      );
+                    }}
+                  />
+                  {/* {this.renderRoutes()} */}
+                </Switch>
 
               </div>
             </Route>
