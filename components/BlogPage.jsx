@@ -32,6 +32,21 @@ const Image = (props) => {
   return <img {...props} alt="img" style={{ maxWidth: '100%', maxHeight: 450 }} />;
 };
 
+const Blockquote = (props) => {
+  return (
+    <blockquote
+      {...props}
+      style={{
+        background: '#f9f9f9',
+        borderLeft: '10px solid #ccc',
+        margin: '1.5em 10px',
+        padding: '0.5em 10px',
+        quotes: '"\\201C""\\201D""\\2018""\\2019"',
+      }}
+    />
+  );
+};
+
 const mobileStyle = (drawerWidth) => {
   return {
     marginLeft: drawerWidth,
@@ -99,7 +114,7 @@ class BlogPage extends Component {
           </div>
           <Container blog open={open} mobile={isMobile()}>
             <Card className={classes.card}>
-              <Markdown source={body} renderers={{ image: Image }} />
+              <Markdown source={body} renderers={{ image: Image, blockquote: Blockquote }} />
             </Card>
           </Container>
         </React.Fragment>
