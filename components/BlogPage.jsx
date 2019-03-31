@@ -48,14 +48,14 @@ class BlogPage extends Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (nextProps.blogs.length > 0) return true;
-    return false;
+    const { location } = this.props;
+    return (nextProps.blogs.length > 0 || nextProps.location.pathname !== location.pathname);
   }
 
   componentDidUpdate(prevProps) {
     // Typical usage (don't forget to compare props):
-    const { blogs } = this.props;
-    if (blogs !== prevProps.blogs) {
+    const { blogs, location } = this.props;
+    if (blogs !== prevProps.blogs || prevProps.location.pathname !== location.pathname) {
       this.getBlog();
     }
   }

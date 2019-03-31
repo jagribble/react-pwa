@@ -13,9 +13,9 @@ const styleLoading = {
   zIndex: 100000,
 };
 
-const styleLoadingIcon = {
-  marginLeft: '47%', marginTop: '-15vh', zIndex: 100000, display: 'inherit',
-};
+// const styleLoadingIcon = {
+//   marginLeft: '47%', marginTop: '-15vh', zIndex: 100000, display: 'inherit',
+// };
 
 const Loading = () => {
   return (

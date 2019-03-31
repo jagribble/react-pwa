@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createClient } from 'contentful';
 import isMobile from 'is-mobile';
 
@@ -21,14 +21,6 @@ const theme = createMuiTheme({
     useNextVariants: true,
   },
 });
-
-const pages = [{
-  pathname: '/Home',
-}, {
-  pathname: '/blog',
-  children: [
-  ],
-}];
 
 // const homeText = `
 // # Home
@@ -122,80 +114,81 @@ export default class App extends Component {
                         toggleDrawer={this.toggleDrawer}
                         title="Jules Gribble"
                         navItems={menuItems}
+                        blogs={blogs}
                         {...props}
                       />
                     );
                   }}
                 />
+                <Switch>
+                  <Route
+                    exact
+                    path="/"
+                    render={(props) => {
+                      return (
+                        <Container
+                          open={open}
+                          mobile={isMobile()}
+                        >
+                          <Home
+                            {...props}
+                          />
+                        </Container>
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/under-contruction"
+                    render={(props) => {
+                      return (
+                        <Container
+                          open={open}
+                          mobile={isMobile()}
+                        >
+                          <UnderConstruction
+                            {...props}
+                          />
+                        </Container>
+                      );
+                    }}
+                  />
+                  <Route
+                    exact
+                    path="/blog"
+                    render={(props) => {
+                      return (
+                        <Container
+                          open={open}
+                          mobile={isMobile()}
+                        >
+                          <BlogHomePage
+                            blogs={blogs}
+                            images={assets}
+                            {...props}
+                          />
+                        </Container>
+                      );
+                    }}
+                  />
+                  <Route
 
-                <Route
-                  exact
-                  path="/"
-                  render={(props) => {
-                    return (
-                      <Container
-                        open={open}
-                        mobile={isMobile()}
-                      >
-                        <Home
-                          {...props}
-                        />
-                      </Container>
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/under-contruction"
-                  render={(props) => {
-                    return (
-                      <Container
-                        open={open}
-                        mobile={isMobile()}
-                      >
-                        <UnderConstruction
-                          {...props}
-                        />
-                      </Container>
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/blog"
-                  render={(props) => {
-                    return (
-                      <Container
-                        open={open}
-                        mobile={isMobile()}
-                      >
-                        <BlogHomePage
+                    path="/blog/:slug"
+                    render={(props) => {
+                      return (
+
+                        <BlogPage
                           blogs={blogs}
                           images={assets}
+                          open={open}
                           {...props}
                         />
-                      </Container>
-                    );
-                  }}
-                />
-                <Route
-                  exact
-                  path="/blog/:slug"
-                  render={(props) => {
-                    return (
 
-                      <BlogPage
-                        blogs={blogs}
-                        images={assets}
-                        open={open}
-                        {...props}
-                      />
-
-                    );
-                  }}
-                />
-                {/* {this.renderRoutes()} */}
-
+                      );
+                    }}
+                  />
+                  {/* {this.renderRoutes()} */}
+                </Switch>
 
               </div>
             </Route>
