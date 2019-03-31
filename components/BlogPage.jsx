@@ -29,7 +29,7 @@ const styles = () => {
 };
 
 const Image = (props) => {
-  return <img {...props} alt="img" style={{ maxWidth: '100%' }} />;
+  return <img {...props} alt="img" style={{ maxWidth: '100%', maxHeight: 450 }} />;
 };
 
 const mobileStyle = (drawerWidth) => {
