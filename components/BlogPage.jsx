@@ -15,7 +15,7 @@ const styles = () => {
     },
     header: {
       color: 'white',
-      textShadow: '2px 2px #3f51b5',
+      textShadow: '2px 2px #000000',
       padding: 20,
       position: 'absolute',
       top: '50%',
