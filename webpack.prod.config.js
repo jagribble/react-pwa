@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+require('webpack');
 
 const MinifyPlugin = require('babel-minify-webpack-plugin');
 // required for development to import all local envs
@@ -7,7 +7,7 @@ require('dotenv').config();
 
 // console.log(process.env);
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   context: __dirname,
   entry: `${__dirname}/components/index.js`,
   resolve: {
