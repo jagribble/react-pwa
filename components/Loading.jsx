@@ -1,5 +1,5 @@
 import React from 'react';
-import CircularProgress from 'material-ui/CircularProgress';
+
 
 const styleLoading = {
   background: '#e9e9e9',
@@ -20,7 +20,7 @@ const styleLoadingIcon = {
 const Loading = () => {
   return (
     <div>
-      <CircularProgress style={styleLoadingIcon} size={80} thickness={5} />
+
       <div style={styleLoading} />
     </div>
   );

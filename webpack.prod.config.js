@@ -1,6 +1,5 @@
 require('webpack');
 
-const MinifyPlugin = require('babel-minify-webpack-plugin');
 // required for development to import all local envs
 require('dotenv').config();
 
@@ -23,9 +22,6 @@ module.exports = {
       },
     }],
   },
-  plugins: [
-    new MinifyPlugin(),
-  ],
   output: {
     filename: 'build.js',
     path: `${__dirname}/public/js`,
