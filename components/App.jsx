@@ -22,6 +22,14 @@ const theme = createMuiTheme({
   },
 });
 
+const pages = [{
+  pathname: '/Home',
+}, {
+  pathname: '/blog',
+  children: [
+  ],
+}];
+
 // const homeText = `
 // # Home
 // ---
