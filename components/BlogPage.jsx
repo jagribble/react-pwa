@@ -25,7 +25,7 @@ const mobileStyle = (drawerWidth) => {
 class BlogPage extends Component {
   constructor(props) {
     super(props);
-    this.state = { blog: {} };
+    this.state = { blog: false };
     this.getBlog = this.getBlog.bind(this);
     this.getImageURL = this.getImageURL.bind(this);
   }
@@ -66,7 +66,7 @@ class BlogPage extends Component {
   render() {
     const { open } = this.props;
     const { blog } = this.state;
-    if (blog !== {}) {
+    if (blog) {
       const {
         heroImage = '', title, body,
       } = blog.fields;

@@ -178,6 +178,7 @@ export default class App extends Component {
 
                       <BlogPage
                         blogs={blogs}
+                        images={assets}
                         {...props}
                       />
 
