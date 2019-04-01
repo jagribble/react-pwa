@@ -82,7 +82,7 @@ class BlogHomePage extends Component {
           const {
             title, publishDate, description, shortDescription, tags, heroImage, slug,
           } = blog.fields;
-          const heroImageUrl = `https:${this.getImageURL(heroImage.sys.id)}`;
+          const heroImageUrl = `https:${this.getImageURL(heroImage.sys.id)}?fm=jpg&fl=progressive`;
           return (
             <Card className={classes.card} key={title} onClick={() => { history.push(`/blog/${slug}`); }}>
               <Grid container>
