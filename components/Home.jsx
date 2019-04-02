@@ -5,6 +5,8 @@ import Markdown from 'react-markdown';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
+import Typist from 'react-typist';
+
 
 const styles = () => {
   return {
@@ -66,7 +68,21 @@ const Home = (props) => {
       <Parallax bgImage="/img/home1.jpg" strength={500} style={{ marginTop: -10 }}>
         <div style={{ height: 500 }}>
           <div>
-            <h1 className={classNames(classes.headerText)}>Jules Gribble</h1>
+            <Typist startDelay={1000} cursor={{ hideWhenDone: true }}>
+              <h1 className={classNames(classes.headerText)}>
+Jules GHriubk
+                <Typist.Backspace count={6} delay={500} />
+                ribbke
+                <Typist.Backspace count={2} delay={500} />
+                le
+                <Typist.Delay ms={500} />
+                <br />
+&nbsp;💻🎉
+                <Typist.Delay ms={500} />
+                😊
+              </h1>
+
+            </Typist>
             <img loop="50" className={classes.headerStyle} alt="img" src="/img/Jules.gif" />
           </div>
         </div>
