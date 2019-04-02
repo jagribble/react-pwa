@@ -6,6 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import Chip from '@material-ui/core/Chip';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
+import Hidden from '@material-ui/core/Hidden';
 import Grid from '@material-ui/core/Grid';
 import Markdown from 'react-markdown';
 
@@ -16,7 +17,7 @@ const styles = () => {
     },
     card: {
       margin: 25,
-      height: 280,
+
     },
     sneakPeak: {
       width: '100%',
@@ -31,15 +32,20 @@ const styles = () => {
     },
     content: {
       padding: 25,
+      height: 280,
+    },
+    contentMobile: {
+      padding: 25,
     },
     chip: {
       marginRight: 5,
+      marginTop: 5,
     },
     divider: {
       marginBottom: 5,
     },
     image: {
-      height: '100%',
+      height: 280,
       width: '100%',
     },
   };
@@ -85,43 +91,84 @@ class BlogHomePage extends Component {
           const heroImageUrl = `https:${this.getImageURL(heroImage.sys.id)}?fm=jpg&fl=progressive`;
           return (
             <Card className={classes.card} key={title} onClick={() => { history.push(`/blog/${slug}`); }}>
-              <Grid container>
-                <Grid item sm={8}>
-                  <CardContent className={classes.content}>
-                    <Typograohy variant="h3">{title}</Typograohy>
 
-                    {/* <Typograohy>{author}</Typograohy> */}
-                    <Typograohy
-                      gutterBottom
-                      noWrap
-                      className={classes.description}
-                    >
-                      <i>{description}</i>
+              <Hidden xsDown>
+                <Grid container>
+                  <Grid item sm={8} xs={12}>
+                    <CardContent className={classes.content}>
+                      <Typograohy variant="h3">{title}</Typograohy>
 
-                    </Typograohy>
-                    <Divider className={classes.divider} />
+                      {/* <Typograohy>{author}</Typograohy> */}
+                      <Typograohy
+                        gutterBottom
+                        noWrap
+                        className={classes.description}
+                      >
+                        <i>{description}</i>
 
-                    <Markdown source={shortDescription} className={classes.sneakPeak} />
+                      </Typograohy>
+                      <Divider className={classes.divider} />
 
-                    <Typograohy>
+                      <Markdown source={shortDescription} className={classes.sneakPeak} />
+
+                      <Typograohy>
 Published on
-                      {' '}
-                      <i>{getDate(publishDate)}</i>
-                    </Typograohy>
-                    {this.getChips(tags, blog.sys.id)}
-                  </CardContent>
+                        {' '}
+                        <i>{getDate(publishDate)}</i>
+                      </Typograohy>
+                      {this.getChips(tags, blog.sys.id)}
+                    </CardContent>
+                  </Grid>
+                  <Grid item sm={4} xs={12}>
+                    <CardMedia
+                      className={classes.image}
+                      image={heroImageUrl}
+                      title={title}
+                    />
+                  </Grid>
                 </Grid>
-                <Grid item sm={4}>
-                  <CardMedia
-                    className={classes.image}
-                    image={heroImageUrl}
-                    title={title}
-                  />
+              </Hidden>
+              <Hidden smUp>
+                <Grid container direction="column">
+                  <Grid item xs>
+                    <CardContent className={classes.contentMobile}>
+                      <Typograohy variant="h5">{title}</Typograohy>
+
+                      {/* <Typograohy>{author}</Typograohy> */}
+                      <Typograohy
+                        gutterBottom
+                        noWrap
+                        className={classes.description}
+                      >
+                        <i>{description}</i>
+
+                      </Typograohy>
+                      <Divider className={classes.divider} />
+
+                      <Markdown source={shortDescription} className={classes.sneakPeak} />
+
+                      <Typograohy>
+Published on
+                        {' '}
+                        <i>{getDate(publishDate)}</i>
+                      </Typograohy>
+                      {this.getChips(tags, blog.sys.id)}
+                    </CardContent>
+                  </Grid>
+                  <Grid item xs>
+                    <CardMedia
+                      className={classes.image}
+                      image={heroImageUrl}
+                      title={title}
+                    />
+                  </Grid>
                 </Grid>
-              </Grid>
-            </Card>);
+              </Hidden>
+            </Card>
+          );
         })}
-      </div>);
+      </div>
+    );
   }
 }
 
