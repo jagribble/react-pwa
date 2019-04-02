@@ -63,7 +63,7 @@ const Home = (props) => {
   const { classes } = props;
   return (
     <>
-      <Parallax bgImage="/img/home1.jpg" strength={500}>
+      <Parallax bgImage="/img/home1.jpg" strength={500} style={{ marginTop: -10 }}>
         <div style={{ height: 500 }}>
           <div>
             <h1 className={classNames(classes.headerText)}>Jules Gribble</h1>
@@ -72,11 +72,11 @@ const Home = (props) => {
         </div>
       </Parallax>
       <Card className={classes.card}>
-        <Typography variant="h1">Jules Gribble,</Typography>
+        <Typography variant="h2">Jules Gribble,</Typography>
         <Typography variant="h5">Developer</Typography>
         <Markdown source={bio} />
       </Card>
-        </>
+    </>
 
   );
 };

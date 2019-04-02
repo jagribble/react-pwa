@@ -34,7 +34,6 @@ export default class App extends Component {
       open: false, blogs: [], menuItems: [], assets: [],
     };
     this.toggleDrawer = this.toggleDrawer.bind(this);
-    this.getHomeContent = this.getHomeContent.bind(this);
     this.getBlogs = this.getBlogs.bind(this);
     this.getImageURLs = this.getImageURLs.bind(this);
     this.getMenuItems = this.getMenuItems.bind(this);
@@ -42,7 +41,6 @@ export default class App extends Component {
   }
 
   componentWillMount() {
-    this.getHomeContent();
     this.getBlogs();
   }
 
@@ -58,21 +56,7 @@ export default class App extends Component {
       .catch(console.error);
   }
 
-  getHomeContent() {
-    client.getEntries({
-      content_type: 'home',
-    })
-      .then((response) => {
-        this.setState({ assets: response.includes.Asset });
-      })
-      .catch(console.error);
-  }
-
   getMenuItems() {
-    // const { blogs } = this.state;
-    // const menuItems = blogs.map((blog) => {
-    //   return { title: blog.fields.title, url: `/blog/${blog.fields.slug}` };
-    // });
     this.setState({ menuItems: [{ title: 'Blogs', url: '/Blog' }] });
   }
 

@@ -4,13 +4,15 @@ import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-
+import Hidden from '@material-ui/core/Hidden';
 import Divider from '@material-ui/core/Divider';
+import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
+import isMobile from 'is-mobile';
 import MenuBar from './MenuBar';
 
 const drawerWidth = 240;
@@ -86,7 +88,7 @@ const Template = (props) => {
         <AppBar
           position="fixed"
           color="default"
-          className={!open ? classes.appBar : classes.appBarShift}
+          className={!open || isMobile() ? classes.appBar : classes.appBarShift}
         >
           <Toolbar disableGutters={!open}>
             <IconButton
@@ -100,23 +102,24 @@ const Template = (props) => {
             {title}
           </Toolbar>
         </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="persistent"
-          anchor="left"
-          open={open}
-          classes={{
-            paper: classes.drawerPaper,
-          }}
-        >
-          <div className={classes.drawerHeader}>
-            <IconButton onClick={toggleDrawer}>
-              {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-            </IconButton>
-          </div>
-          <Divider />
-          <MenuBar blogs={blogs} history={history} />
-          {/* <List>
+        <Hidden xsDown>
+          <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            anchor="left"
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+          >
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={toggleDrawer}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+              </IconButton>
+            </div>
+            <Divider />
+            <MenuBar blogs={blogs} history={history} />
+            {/* <List>
             <ListItem button key="Home" onClick={() => { return history.push('/'); }}>
               <ListItemText primary="Home" />
             </ListItem>
@@ -128,7 +131,26 @@ const Template = (props) => {
               );
             })}
           </List> */}
-        </Drawer>
+          </Drawer>
+        </Hidden>
+        <Hidden smUp>
+          <SwipeableDrawer
+            open={open}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            onOpen={toggleDrawer}
+            onClose={toggleDrawer}
+          >
+            <div className={classes.drawerHeader}>
+              <IconButton onClick={toggleDrawer}>
+                {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+              </IconButton>
+            </div>
+            <Divider />
+            <MenuBar blogs={blogs} history={history} />
+          </SwipeableDrawer>
+        </Hidden>
       </div>
     </React.Fragment>
   );
