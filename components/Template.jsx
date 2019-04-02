@@ -81,6 +81,8 @@ const Template = (props) => {
   const {
     classes, theme, open, toggleDrawer, title, history, blogs,
   } = props;
+  // eslint-disable-next-line
+  const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   return (
     <React.Fragment>
       <div className={classes.root}>
@@ -135,6 +137,8 @@ const Template = (props) => {
         </Hidden>
         <Hidden smUp>
           <SwipeableDrawer
+            disableBackdropTransition={!iOS}
+            disableDiscovery={iOS}
             open={open}
             classes={{
               paper: classes.drawerPaper,
