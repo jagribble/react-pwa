@@ -6,7 +6,15 @@ const { GenerateSW } = require('workbox-webpack-plugin');
 // console.log(process.env);
 module.exports = {
   mode: 'production',
-  plugins: [new GenerateSW()],
+  plugins: [new GenerateSW({
+    swDest: 'sw.js',
+    clientsClaim: true,
+    skipWaiting: true,
+    runtimeCaching: [{
+      urlPattern: new RegExp('https://jules-gribble.co.uk'),
+      handler: 'StaleWhileRevalidate',
+    }],
+  })],
   context: __dirname,
   entry: `${__dirname}/components/index.js`,
   resolve: {
