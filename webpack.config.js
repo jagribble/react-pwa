@@ -33,7 +33,12 @@ module.exports = {
     }],
   },
   plugins: [
-    new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }), new GenerateSW(),
+    new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }),
+    new GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
+    }),
   ],
   output: {
     filename: 'build.js',

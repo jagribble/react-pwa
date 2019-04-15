@@ -81,7 +81,6 @@ class BlogHomePage extends Component {
 
   render() {
     const { blogs, classes, history } = this.props;
-    console.log(blogs);
     return (
       <div className={classes.page}>
         {blogs.map((blog) => {

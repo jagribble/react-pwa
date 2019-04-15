@@ -84,7 +84,7 @@ class BlogPage extends Component {
     const { params } = match;
     if (blogs.length > 0) {
       const blog = blogs.find((b) => { return b.fields.slug === params.slug; });
-      console.log(blog);
+
       this.setState({ blog });
     }
   }
