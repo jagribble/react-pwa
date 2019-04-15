@@ -1,20 +1,25 @@
 require('webpack');
 
 const { GenerateSW } = require('workbox-webpack-plugin');
-
+const HtmlPlugin = require('html-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
 
 // console.log(process.env);
 module.exports = {
   mode: 'production',
-  plugins: [new GenerateSW({
-    swDest: 'sw.js',
-    clientsClaim: true,
-    skipWaiting: true,
-    runtimeCaching: [{
-      urlPattern: new RegExp('https://jules-gribble.co.uk'),
-      handler: 'StaleWhileRevalidate',
-    }],
-  })],
+  plugins: [new CleanPlugin(['/js']),
+    new HtmlPlugin({
+      filename: 'index.html',
+      title: 'Get Started With Workbox For Webpack',
+    }), new GenerateSW({
+      swDest: 'sw.js',
+      clientsClaim: true,
+      skipWaiting: true,
+      runtimeCaching: [{
+        urlPattern: new RegExp('https://jules-gribble.co.uk'),
+        handler: 'StaleWhileRevalidate',
+      }],
+    })],
   context: __dirname,
   entry: `${__dirname}/components/index.js`,
   resolve: {
