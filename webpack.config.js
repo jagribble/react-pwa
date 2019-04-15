@@ -1,8 +1,8 @@
 require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const { GenerateSW } = require('workbox-webpack-plugin');
-const htmlPlugin = require('html-webpack-plugin');
-const cleanPlugin = require('clean-webpack-plugin');
+const HtmlPlugin = require('html-webpack-plugin');
+const CleanPlugin = require('clean-webpack-plugin');
 const path = require('path');
 // const MinifyPlugin = require('babel-minify-webpack-plugin');
 // required for development to import all local envs
@@ -36,10 +36,10 @@ module.exports = {
   },
   plugins: [
     new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }),
-    new cleanPlugin(['/js']),
-    new htmlPlugin({
+    new CleanPlugin(['dist']),
+    new HtmlPlugin({
       filename: 'index.html',
-      title: 'Get Started With Workbox For Webpack',
+      title: 'Jules Gribble',
     }),
     new GenerateSW({
       swDest: 'sw.js',

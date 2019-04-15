@@ -7,10 +7,10 @@ const CleanPlugin = require('clean-webpack-plugin');
 // console.log(process.env);
 module.exports = {
   mode: 'production',
-  plugins: [new CleanPlugin(['/js']),
+  plugins: [new CleanPlugin(['dist']),
     new HtmlPlugin({
       filename: 'index.html',
-      title: 'Get Started With Workbox For Webpack',
+      title: 'Jules Gribble',
     }), new GenerateSW({
       swDest: 'sw.js',
       clientsClaim: true,
