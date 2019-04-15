@@ -1,12 +1,12 @@
 require('webpack');
 
-// required for development to import all local envs
-require('dotenv').config();
+const { GenerateSW } = require('workbox-webpack-plugin');
 
 
 // console.log(process.env);
 module.exports = {
   mode: 'production',
+  plugins: [new GenerateSW()],
   context: __dirname,
   entry: `${__dirname}/components/index.js`,
   resolve: {

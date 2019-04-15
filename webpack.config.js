@@ -1,5 +1,6 @@
 require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const path = require('path');
 // const MinifyPlugin = require('babel-minify-webpack-plugin');
 // required for development to import all local envs
@@ -32,7 +33,7 @@ module.exports = {
     }],
   },
   plugins: [
-    new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }),
+    new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }), new GenerateSW(),
   ],
   output: {
     filename: 'build.js',
