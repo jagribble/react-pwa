@@ -1,4 +1,4 @@
-{"dir" : "ltr",
+{
     "name" : "JulesGribble",
     "scope" : "/",
     "display" : "standalone",
@@ -10,7 +10,6 @@
     "background_color" : "transparent",
     "related_applications" : "",
     "prefer_related_applications" : "false",
-    "generated" : "true",
     "icons" : [
         {
             "src": "https://jules-gribble.co.uk/img/logo.ico",
