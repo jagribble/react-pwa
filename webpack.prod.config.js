@@ -7,7 +7,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 // console.log(process.env);
 module.exports = {
   mode: 'production',
-  plugins: [new CleanPlugin(['dist']),
+  plugins: [new CleanPlugin(),
     new HtmlPlugin({
       filename: 'index.html',
       title: 'Jules Gribble',

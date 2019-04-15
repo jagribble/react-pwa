@@ -36,7 +36,7 @@ module.exports = {
   },
   plugins: [
     new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }),
-    new CleanPlugin(['dist']),
+    new CleanPlugin(),
     new HtmlPlugin({
       filename: 'index.html',
       title: 'Jules Gribble',
