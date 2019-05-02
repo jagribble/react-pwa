@@ -21,8 +21,10 @@ module.exports = {
         handler: 'StaleWhileRevalidate',
       }],
     }), new webpack.DefinePlugin({
-      CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
-      CONTENTFUL_TOKEN: process.env.CONTENTFUL_TOKEN,
+      'process.env': {
+        CONTENTFUL_SPACE: JSON.stringify(process.env.CONTENTFUL_SPACE),
+        CONTENTFUL_TOKEN: JSON.stringify(process.env.CONTENTFUL_TOKEN),
+      },
     })],
   context: __dirname,
   entry: `${__dirname}/components/index.js`,

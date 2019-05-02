@@ -6,15 +6,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 const path = require('path');
 // const MinifyPlugin = require('babel-minify-webpack-plugin');
 // required for development to import all local envs
-const dotenv = require('dotenv');
-
-const env = dotenv.config().parsed;
-
-// reduce it to a nice object, the same as before
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
+require('dotenv').config();
 
 
 console.log(process.env);
@@ -58,8 +50,12 @@ module.exports = {
         handler: 'StaleWhileRevalidate',
       }],
     }),
-    new webpack.DefinePlugin(envKeys),
-  ],
+    new webpack.DefinePlugin({
+      'process.env': {
+        CONTENTFUL_SPACE: JSON.stringify(process.env.CONTENTFUL_SPACE),
+        CONTENTFUL_TOKEN: JSON.stringify(process.env.CONTENTFUL_TOKEN),
+      },
+    })],
   output: {
     filename: 'build.js',
     path: `${__dirname}/public/js`,
