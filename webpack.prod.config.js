@@ -3,17 +3,9 @@ const webpack = require('webpack');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-const dotenv = require('dotenv');
+const dotenv = require('dotenv').config();
 
-const env = dotenv.config().parsed;
 
-// reduce it to a nice object, the same as before
-const envKeys = Object.keys(env).reduce((prev, next) => {
-  prev[`process.env.${next}`] = JSON.stringify(env[next]);
-  return prev;
-}, {});
-
-console.log(env);
 module.exports = {
   mode: 'production',
   plugins: [new CleanPlugin(),
@@ -28,7 +20,10 @@ module.exports = {
         urlPattern: new RegExp('https://jules-gribble.co.uk'),
         handler: 'StaleWhileRevalidate',
       }],
-    }), new webpack.DefinePlugin(envKeys)],
+    }), new webpack.DefinePlugin({
+      CONTENTFUL_SPACE: process.env.CONTENTFUL_SPACE,
+      CONTENTFUL_TOKEN: process.env.CONTENTFUL_TOKEN,
+    })],
   context: __dirname,
   entry: `${__dirname}/components/index.js`,
   resolve: {
