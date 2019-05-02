@@ -3,9 +3,9 @@ const webpack = require('webpack');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 
-
+console.log(process.env);
 module.exports = {
   mode: 'production',
   plugins: [new CleanPlugin(),

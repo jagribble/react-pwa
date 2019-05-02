@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.2.0/workbox-sw.js");
 
 importScripts(
-  "precache-manifest.42902dc2c7bca6ec0bd974558dc8922f.js"
+  "precache-manifest.abbf18b1e77b66be2116d6d00ebe2d1c.js"
 );
 
 workbox.core.skipWaiting();
@@ -28,3 +28,5 @@ workbox.core.clientsClaim();
  */
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+workbox.routing.registerRoute(/https:\/\/jules-gribble.co.uk/, new workbox.strategies.StaleWhileRevalidate(), 'GET');
