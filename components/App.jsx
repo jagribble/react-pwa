@@ -21,7 +21,7 @@ const theme = createMuiTheme({
     useNextVariants: true,
   },
 });
-console.log(process.env);
+
 // const homeText = `
 // # Home
 // ---
