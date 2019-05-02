@@ -14,6 +14,7 @@ module.exports = {
       title: 'Jules Gribble',
     }), new InjectManifest({
       swSrc: './components/SW/sw.js',
+      precacheManifestFilename: '../precacheManifest.[manifestHash].js',
       swDest: '../sw.js',
     }), new webpack.DefinePlugin({
       'process.env': {
