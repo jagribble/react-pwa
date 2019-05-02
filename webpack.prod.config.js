@@ -13,6 +13,7 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
   return prev;
 }, {});
 
+console.log(env);
 module.exports = {
   mode: 'production',
   plugins: [new CleanPlugin(),
