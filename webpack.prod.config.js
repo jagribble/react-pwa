@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 
-const { GenerateSW } = require('workbox-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 require('dotenv').config();
@@ -12,14 +12,9 @@ module.exports = {
     new HtmlPlugin({
       filename: 'index.html',
       title: 'Jules Gribble',
-    }), new GenerateSW({
-      swDest: 'sw.js',
-      clientsClaim: true,
-      skipWaiting: true,
-      runtimeCaching: [{
-        urlPattern: new RegExp('https://jules-gribble.co.uk'),
-        handler: 'StaleWhileRevalidate',
-      }],
+    }), new InjectManifest({
+      swSrc: './components/SW/sw.js',
+      swDest: '../sw.js',
     }), new webpack.DefinePlugin({
       'process.env': {
         CONTENTFUL_SPACE: JSON.stringify(process.env.CONTENTFUL_SPACE),

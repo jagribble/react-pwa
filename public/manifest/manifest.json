@@ -2,7 +2,7 @@
     "name" : "JulesGribble",
     "scope" : "/",
     "display" : "standalone",
-    "start_url" : "https://jules-gribble.co.uk/",
+    "start_url" : "/",
     "short_name" : "Jules",
     "theme_color" : "transparent",
     "description" : "",

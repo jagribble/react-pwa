@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const { GenerateSW } = require('workbox-webpack-plugin');
+const { InjectManifest } = require('workbox-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 const CleanPlugin = require('clean-webpack-plugin');
 const path = require('path');
@@ -41,14 +41,10 @@ module.exports = {
       filename: 'index.html',
       title: 'Jules Gribble',
     }),
-    new GenerateSW({
-      swDest: 'sw.js',
-      clientsClaim: true,
-      skipWaiting: true,
-      runtimeCaching: [{
-        urlPattern: new RegExp('https://jules-gribble.co.uk'),
-        handler: 'StaleWhileRevalidate',
-      }],
+    new InjectManifest({
+      swSrc: './components/SW/sw.js',
+      precacheManifestFilename: '../precacheManifest.[manifestHash].js',
+      swDest: '../sw.js',
     }),
     new webpack.DefinePlugin({
       'process.env': {
