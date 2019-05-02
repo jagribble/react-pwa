@@ -1,4 +1,4 @@
-require('webpack');
+const webpack = require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
 const { GenerateSW } = require('workbox-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
@@ -6,7 +6,15 @@ const CleanPlugin = require('clean-webpack-plugin');
 const path = require('path');
 // const MinifyPlugin = require('babel-minify-webpack-plugin');
 // required for development to import all local envs
-require('dotenv').config();
+const dotenv = require('dotenv');
+
+const env = dotenv.config().parsed;
+
+// reduce it to a nice object, the same as before
+const envKeys = Object.keys(env).reduce((prev, next) => {
+  prev[`process.env.${next}`] = JSON.stringify(env[next]);
+  return prev;
+}, {});
 
 
 console.log(process.env);
@@ -50,6 +58,7 @@ module.exports = {
         handler: 'StaleWhileRevalidate',
       }],
     }),
+    new webpack.DefinePlugin(envKeys),
   ],
   output: {
     filename: 'build.js',

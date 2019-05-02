@@ -12,8 +12,8 @@ import Container from './Container';
 import UnderConstruction from './UnderConstruction';
 
 const client = createClient({
-  space: 'z8eeiao1aitz',
-  accessToken: '169681cf555eb02d1298b7918d6b7c97c2999ebc4878dfce1b04d96cfa676c1a',
+  space: process.env.CONTENTFUL_SPACE,
+  accessToken: process.env.CONTENTFUL_TOKEN,
 });
 
 const theme = createMuiTheme({
