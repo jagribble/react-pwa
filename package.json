@@ -5,7 +5,8 @@
   "scripts": {
     "start": "webpack --config webpack.prod.config.js && node ./bin/www",
     "start:dev": "webpack --config webpack.config.js && node ./bin/www",
-    "start:prod": "webpack --config webpack.prod.config.js && node ./bin/www"
+    "start:prod": "webpack --config webpack.prod.config.js && node ./bin/www",
+    "workbox-build": "node ServiceWorker/workbox-build-inject.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.0",
@@ -50,6 +51,7 @@
     "node-sass": "^4.11.0",
     "sass-loader": "^7.1.0",
     "style-loader": "^0.23.1",
-    "webpack-notifier": "^1.7.0"
+    "webpack-notifier": "^1.7.0",
+    "workbox-build": "^4.3.1"
   }
 }
