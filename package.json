@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "start": "npm run workbox-build && webpack --config webpack.prod.config.js && node ./bin/www",
-    "start:dev": "webpack --config webpack.config.js && node ./bin/www",
-    "start:prod": "webpack --config webpack.prod.config.js && node ./bin/www",
+    "start:dev": "npm run workbox-build && webpack --config webpack.config.js && node ./bin/www",
+    "start:prod": "npm run workbox-build && webpack --config webpack.prod.config.js && node ./bin/www",
     "workbox-build": "node ServiceWorker/workbox-build-inject.js"
   },
   "dependencies": {
