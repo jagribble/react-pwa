@@ -11,6 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import Install from '@material-ui/icons/GetApp';
 
 import isMobile from 'is-mobile';
 import MenuBar from './MenuBar';
@@ -77,6 +78,34 @@ const styles = (theme) => {
   };
 };
 
+const InstallIcon = () => {
+  let installPromptEvent = null;
+  window.addEventListener('beforeinstallprompt', (event) => {
+    console.log('beforeinstallprompt event was fired');
+    // Prevent Chrome <= 67 from automatically showing the prompt
+    event.preventDefault();
+    // Stash the event so it can be triggered later.
+    installPromptEvent = event;
+  });
+  return (
+    <Install
+      style={{ float: 'right' }}
+      onClick={() => {
+        installPromptEvent.prompt();
+        installPromptEvent.userChoice.then((choice) => {
+          if (choice.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          // Clear the saved prompt since it can't be used again
+          installPromptEvent = null;
+        });
+      }}
+    />
+  );
+};
+
 const Template = (props) => {
   const {
     classes, theme, open, toggleDrawer, title, history, blogs,
@@ -102,6 +131,7 @@ const Template = (props) => {
               <MenuIcon />
             </IconButton>
             {title}
+            <InstallIcon />
           </Toolbar>
         </AppBar>
         <Hidden xsDown>
