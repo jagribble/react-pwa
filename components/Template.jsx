@@ -121,18 +121,6 @@ const Template = (props) => {
             </div>
             <Divider />
             <MenuBar blogs={blogs} history={history} />
-            {/* <List>
-            <ListItem button key="Home" onClick={() => { return history.push('/'); }}>
-              <ListItemText primary="Home" />
-            </ListItem>
-            {navItems.map((item) => {
-              return (
-                <ListItem button key={item.url} onClick={() => { return history.push(item.url); }}>
-                  <ListItemText primary={item.title} />
-                </ListItem>
-              );
-            })}
-          </List> */}
           </Drawer>
         </Hidden>
         <Hidden smUp>

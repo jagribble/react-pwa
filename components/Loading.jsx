@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const styleLoading = {
   background: '#e9e9e9',
   display: 'inherit',
@@ -12,10 +11,6 @@ const styleLoading = {
   opacity: 0.5,
   zIndex: 100000,
 };
-
-// const styleLoadingIcon = {
-//   marginLeft: '47%', marginTop: '-15vh', zIndex: 100000, display: 'inherit',
-// };
 
 const Loading = () => {
   return (

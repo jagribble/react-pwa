@@ -7,14 +7,10 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/core/styles';
 
-
 const menuItems = {
   data: [{
     name: 'Home',
     url: '/',
-  }, {
-    name: 'All Blogs',
-    url: '/blog',
   }],
 };
 const styles = {
@@ -89,7 +85,7 @@ class MenuBar extends Component {
               inset
               primary={subOption.name}
             />
-            { state[subOption.name]
+            {state[subOption.name]
               ? <ExpandLess />
               : <ExpandMore />
             }
@@ -99,7 +95,7 @@ class MenuBar extends Component {
             timeout="auto"
             unmountOnExit
           >
-            { this.handler(subOption.children, depth + 1) }
+            {this.handler(subOption.children, depth + 1)}
           </Collapse>
         </div>
       );
@@ -107,23 +103,12 @@ class MenuBar extends Component {
   }
 
   render() {
-    const {
-      blogs,
-    } = this.props;
-    const children = [];
-    blogs.forEach((blog) => {
-      children.push({ name: blog.fields.title, url: `/blog/${blog.fields.slug}` });
-    });
-    const blogMenu = { name: 'Blogs', children };
-    if (!menuItems.data.find((item) => { return item.name === 'Blogs'; }) && children.length > 0) { menuItems.data.push(blogMenu); }
     return (
-
-      <div>
+      <>
         <List>
-          { this.handler(menuItems.data, 0) }
+          {this.handler(menuItems.data, 0)}
         </List>
-      </div>
-
+      </>
     );
   }
 }

@@ -1,15 +1,7 @@
-const webpack = require('webpack');
+require('webpack');
 const WebpackNotifierPlugin = require('webpack-notifier');
-const { InjectManifest } = require('workbox-webpack-plugin');
-const HtmlPlugin = require('html-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
 const path = require('path');
-// const MinifyPlugin = require('babel-minify-webpack-plugin');
-// required for development to import all local envs
-require('dotenv').config();
 
-
-console.log(process.env);
 module.exports = {
   mode: 'development',
   context: __dirname,
@@ -36,22 +28,7 @@ module.exports = {
   },
   plugins: [
     new WebpackNotifierPlugin({ alwaysNotify: true, contentImage: path.join(__dirname, 'logo.png') }),
-    new CleanPlugin(),
-    new HtmlPlugin({
-      filename: 'index.html',
-      title: 'Jules Gribble',
-    }),
-    new InjectManifest({
-      swSrc: './components/SW/sw.js',
-      precacheManifestFilename: '../precacheManifest.[manifestHash].js',
-      swDest: '../sw.js',
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        CONTENTFUL_SPACE: JSON.stringify(process.env.CONTENTFUL_SPACE),
-        CONTENTFUL_TOKEN: JSON.stringify(process.env.CONTENTFUL_TOKEN),
-      },
-    })],
+  ],
   output: {
     filename: 'build.js',
     path: `${__dirname}/public/js`,

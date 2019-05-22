@@ -1,27 +1,7 @@
-const webpack = require('webpack');
+require('webpack');
 
-const { InjectManifest } = require('workbox-webpack-plugin');
-const HtmlPlugin = require('html-webpack-plugin');
-const CleanPlugin = require('clean-webpack-plugin');
-require('dotenv').config();
-
-console.log(process.env);
 module.exports = {
   mode: 'production',
-  plugins: [new CleanPlugin(),
-    new HtmlPlugin({
-      filename: 'index.html',
-      title: 'Jules Gribble',
-    }), new InjectManifest({
-      swSrc: './components/SW/sw.js',
-      precacheManifestFilename: '../precacheManifest.[manifestHash].js',
-      swDest: '../sw.js',
-    }), new webpack.DefinePlugin({
-      'process.env': {
-        CONTENTFUL_SPACE: JSON.stringify(process.env.CONTENTFUL_SPACE),
-        CONTENTFUL_TOKEN: JSON.stringify(process.env.CONTENTFUL_TOKEN),
-      },
-    })],
   context: __dirname,
   entry: `${__dirname}/components/index.js`,
   resolve: {
